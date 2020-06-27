@@ -594,7 +594,7 @@ static bool gui_printer_save_png (gui_printer_t *p)
     }
 
   png_init_io (png_ptr, f);
-  png_set_compression_level (png_ptr, Z_BEST_COMPRESSION);
+  png_set_compression_level (png_ptr, 9 /*Z_BEST_COMPRESSION*/);
 
   png_set_IHDR (png_ptr,
 		info_ptr,
