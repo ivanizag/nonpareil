@@ -287,3 +287,58 @@ void print_kml (FILE *f, kml_t *kml)
   for (scancode = kml->first_scancode; scancode; scancode = scancode->next)
     print_kml_scancode (f, scancode);
 }
+
+void resize_kml_size (kml_size_t *size, int factor) {
+  size->width *= factor;
+  size->height *= factor;
+}
+
+void resize_kml_offset (kml_offset_t *offset, int factor) {
+  offset->x *= factor;
+  offset->y *= factor;
+}
+
+
+void resize_kml_file (kml_t *kml, int factor) {
+  int i, p;
+
+  resize_kml_offset(&kml->background_offset, factor);
+  resize_kml_size(&kml->background_size, factor);
+
+  resize_kml_size(&kml->display_size, factor);
+  resize_kml_offset(&kml->display_offset, factor);
+
+  resize_kml_size(&kml->digit_size, factor);
+  resize_kml_offset(&kml->digit_offset, factor);
+
+  for (i = 0; i < KML_MAX_SEGMENT; i++)
+    if (kml->segment [i]) {
+      resize_kml_size(&kml->segment [i]->size, factor);
+      resize_kml_offset(&kml->segment [i]->offset, factor);
+    }
+
+  for (i = 0; i < KML_MAX_ANNUNCIATOR; i++)
+    if (kml->annunciator [i])
+    {
+      resize_kml_size(&kml->annunciator [i]->size, factor);
+      resize_kml_offset(&kml->annunciator [i]->offset, factor);
+    }
+
+  for (i = 0; i < KML_MAX_SWITCH; i++)
+    if (kml->kswitch [i])
+    {
+      resize_kml_size(&kml->kswitch [i]->size, factor);
+      for (p = 0; p < KML_MAX_SWITCH_POSITION; p++)
+        if (kml->kswitch [i]->position [p])
+          resize_kml_offset(&kml->kswitch [i]->position [p]->offset, factor);
+    }
+
+  for (i = 0; i < KML_MAX_BUTTON; i++)
+    if (kml->button [i])
+    {
+      resize_kml_size(&kml->button [i]->size, factor);
+      resize_kml_offset(&kml->button [i]->offset, factor);
+      resize_kml_offset(&kml->button [i]->down, factor);
+    }
+
+}

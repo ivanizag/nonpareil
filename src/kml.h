@@ -216,3 +216,5 @@ kml_t *read_kml_file (char *fn);
 void free_kml (kml_t *kml);
 
 void print_kml (FILE *f, kml_t *kml);
+
+void resize_kml_file (kml_t *kml, int factor);

@@ -86,6 +86,7 @@ void usage (FILE *f)
   fprintf (f, "   --kmldebug\n");
   fprintf (f, "   --kmldump\n");
   fprintf (f, "   --scancodedebug\n");
+  fprintf (f, "   --big");
 #ifdef HAS_DEBUGGER
   fprintf (f, "   --stop\n");
 #endif
@@ -569,6 +570,7 @@ int main (int argc, char *argv[])
   csim_t *csim;
   char *kml_name = NULL;
   char *kml_fn, *image_fn, *rom_fn;
+  int zoom_factor = 1;
 #ifdef HAS_DEBUGGER
   char *listing_fn;
 #endif
@@ -608,6 +610,8 @@ int main (int argc, char *argv[])
 	    shape = false;
 	  else if (strcasecmp (argv [0], "--kmldump") == 0)
 	    kml_dump = 1;
+	  else if (strcasecmp (argv [0], "--big") == 0)
+	    zoom_factor = 2;
 	  else if (strcasecmp (argv [0], "--scancodedebug") == 0)
 	    csim->scancode_debug = 1;
 #ifdef HAS_DEBUGGER
@@ -630,6 +634,8 @@ int main (int argc, char *argv[])
   csim->kml = read_kml_file (kml_fn);
   if (! csim->kml)
     fatal (2, "can't read KML file '%s'\n", kml_fn);
+
+  resize_kml_file(csim->kml, zoom_factor);
 
   if (kml_dump)
     {
@@ -659,6 +665,16 @@ int main (int argc, char *argv[])
   csim->file_pixbuf = gdk_pixbuf_new_from_file (image_fn, & error);
   if (! csim->file_pixbuf)
     fatal (2, "can't load image '%s'\n", image_fn);
+
+  if (zoom_factor != 1)
+  {
+    csim->file_pixbuf = gdk_pixbuf_scale_simple (csim->file_pixbuf,
+      gdk_pixbuf_get_width (csim->file_pixbuf) * zoom_factor,
+      gdk_pixbuf_get_height (csim->file_pixbuf) * zoom_factor,
+      GDK_INTERP_NEAREST);
+    if (! csim->file_pixbuf)
+      fatal (2, "can't resize image '%s'\n", image_fn);
+  }
 
   if (! csim->kml->has_background_size)
     {
