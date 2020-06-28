@@ -14,6 +14,9 @@ Nonpareil is Free Software, licensed under the Free Software Foundation's Genera
 Nonpareil is not an HP product, and is not supported or warranted by HP. 
 ```
 
+[Original README](README)
+
+
 ## Adittions
 
 ### Docker compilation
@@ -21,5 +24,5 @@ I didn't manage to build nonpareil in Ubuntu 20.04, but a container with 18.04 c
 
 To compile run `./build.sh`. The executable and required files will be on the `dist` directory.
 
-### Double size for hpdi displays
+### Double size for hdpi displays
 Use the parameter `--big` to double the size of the user interface.
