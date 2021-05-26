@@ -17,7 +17,7 @@ Nonpareil is not an HP product, and is not supported or warranted by HP.
 [Original README](README)
 
 
-## Adittions
+## Additions
 
 ### Docker compilation
 I didn't manage to build nonpareil in Ubuntu 20.04, but a container with 18.04 could, with lots of warnings.
