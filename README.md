@@ -22,7 +22,7 @@ Nonpareil is not an HP product, and is not supported or warranted by HP.
 ### Docker compilation
 I didn't manage to build nonpareil in Ubuntu 20.04, but a container with 18.04 could, with lots of warnings.
 
-To compile run `./build.sh`. The executable and required files will be on the `dist` directory.
+To compile, run `./build.sh`. The executable and required files will be on the `dist` directory.
 
 ### Double size for hdpi displays
 Use the parameter `--big` to double the size of the user interface.
