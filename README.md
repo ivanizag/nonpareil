@@ -1,5 +1,7 @@
 # Nonpareil - A Calculator Simulator 
 
+Archived fork. For the latest version go to https://github.com/brouhaha/nonpareil
+
 https://nonpareil.brouhaha.com/
 
 Version 0.78 source code downloaded from https://www.hpcalc.org/details/2813
